@@ -5,7 +5,7 @@ const courseRouter = Router();
 
 
 const isTutor = async (req, res, next) => {
-    const user = await User.findOne({username:req.body.username});
+    const user = await User.findOne({username:req.body.username}); 
     if (!user || !user.isTutor) {
         return res.status(403).json({ message: 'You are not authorized to create a course' });
     }
@@ -29,10 +29,9 @@ courseRouter.get('/get', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
-
-courseRouter.get('/get/:id', async (req, res) => {
+courseRouter.get('/get/:username', async (req, res) => {
     try {
-        const course = await Course.findById(req.params.id);
+        const course = await Course.find({username:req.params.username});
         if (!course) {
             return res.status(404).json({ message: 'Course not found' });
         }

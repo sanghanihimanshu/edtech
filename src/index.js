@@ -19,7 +19,7 @@ app.use(
     extended: false,
   })
 )
-
+ 
 app.use(morgan(function (tokens, req, res) {
   return [
     tokens.method(req, res),
@@ -39,7 +39,7 @@ app.use('/auth',authRouter);
 app.use('/course',courseRouter);
 app.use('/usercourse',userCourseRouter);
 app.use('/video',videoRouter);
-
+ 
 //init
 app.get('/',(req, res)=> {
   res.send("hello from EdTech platform");

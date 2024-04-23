@@ -7,7 +7,6 @@ const authRouter = Router();
 authRouter.post('/register', async (req, res) => {
     try {
         const { username, name, email, password, isTutor } = req.body;
-
         if (!username || !name || !email || !password) {
             return res.status(400).json({ message: 'All fields are required' });
         }

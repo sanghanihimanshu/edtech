@@ -4,7 +4,12 @@ import { UserCourse } from "../db/schema/usercourses.js";
 const userCourseRouter = Router();
 
 userCourseRouter.post("/new", async (req, res) => {
+  console.log(req.body);
   try {
+    const alreadyEnrolled =await UserCourse.find(req.body);
+    if(alreadyEnrolled.length>0 ){
+      return res.status(300).json({ message: "Video already enrolled" });
+    }
     const newUserCourse = new UserCourse(req.body);
     const savedUserCourse = await newUserCourse.save();
     res.status(201).json(savedUserCourse);
@@ -16,8 +21,7 @@ userCourseRouter.post("/new", async (req, res) => {
 userCourseRouter.get("/get", async (req, res) => {
   try {
     const userCourses = await UserCourse.find({
-      courseId: req.query.courseId,
-      userId: req.query.courseId,
+      userId: req.query.userId,
     });
     res.json(userCourses);
   } catch (err) {
